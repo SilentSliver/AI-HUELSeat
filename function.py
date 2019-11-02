@@ -26,7 +26,13 @@ def optical(client,image):
     options["detect_direction"] = "true"
     options["probability"] = "true"
     print("开始加载图像验证码人工智能视觉识别技术，请保持网络链接...")
-    yzm = client.basicAccurate(image, options).get("words_result")[0].get("words")
+    yzm = 0
+    while True:
+        try:
+            yzm = client.basicAccurate(image, options).get("words_result")[0].get("words")
+            break
+        except Exception as e:
+            print("Session 值错误，检查重试！")
     return str(yzm).replace(" ", "")
 
 def downloadImage(time,session):
